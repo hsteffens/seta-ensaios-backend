@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-0">
+    	<sql>CREATE EXTENSION chkpass</sql>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-1">
+        <createSequence sequenceName="seq_laudo"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-2">
+        <createSequence sequenceName="seq_laudo_item"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-3">
+        <createSequence sequenceName="seq_tensao"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-4">
+        <createTable tableName="accounts">
+            <column name="username" type="VARCHAR(100)"/>
+            <column name="password" type="CHKPASS"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-5">
+        <createTable tableName="customers">
+            <column name="cnpj" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="nome" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="solicitante" type="VARCHAR(60)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cep" type="VARCHAR(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fone" type="VARCHAR(16)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="fone2" type="VARCHAR(16)"/>
+            <column name="email" type="VARCHAR(60)"/>
+            <column name="endereco" type="VARCHAR(80)"/>
+            <column name="municipio" type="VARCHAR(40)"/>
+            <column name="estado" type="VARCHAR(2)"/>
+            <column name="ie" type="VARCHAR(12)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-6">
+        <createTable tableName="fabricantes">
+            <column name="cnpj" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="VARCHAR(60)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-7">
+        <createTable tableName="laudos">
+            <column name="did" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cnpj_customer" type="VARCHAR(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="data_laudo" type="date"/>
+            <column name="equipamento" type="VARCHAR(250)"/>
+            <column name="tipo_teste" type="VARCHAR(250)"/>
+            <column name="calibracao" type="VARCHAR(250)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-8">
+        <createTable tableName="laudos_item">
+            <column name="did" type="INT"/>
+            <column name="material" type="VARCHAR(40)"/>
+            <column name="id_tensao" type="INT"/>
+            <column name="data_ensaio" type="date"/>
+            <column name="numero_serie_fabricante" type="VARCHAR(40)"/>
+            <column name="resultado" type="BOOL"/>
+            <column name="corrente_fuga" type="VARCHAR(10)"/>
+            <column name="unidade" type="VARCHAR(10)"/>
+            <column name="origem" type="VARCHAR(10)"/>
+            <column name="numero_seta" type="VARCHAR(40)"/>
+            <column name="data_reteste" type="date"/>
+            <column name="id_laudo" type="INT"/>
+            <column name="cnpj_fabricante" type="VARCHAR(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-9">
+        <createTable tableName="materiais">
+            <column name="nome" type="VARCHAR(40)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cnpj_fabricante" type="VARCHAR(20)"/>
+            <column name="id_tensao" type="INT"/>
+            <column name="corrente_fuga" type="VARCHAR(10)"/>
+            <column name="unidade" type="VARCHAR(10)"/>
+            <column name="numero_serie_fabricante" type="VARCHAR(40)"/>
+            <column name="numero_seta" type="VARCHAR(40)"/>
+            <column name="sequencial" type="BOOL"/>
+            <column name="dias_reteste" type="INT"/>
+            <column name="cautela" type="VARCHAR(300)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-10">
+        <createTable tableName="tensoes">
+            <column name="did" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="codigo" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="teste" type="VARCHAR(10)"/>
+            <column name="corrente_fuga" type="varchar(10) []"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-11">
+        <addPrimaryKey columnNames="cnpj" constraintName="customers_pk" tableName="customers"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-12">
+        <addPrimaryKey columnNames="cnpj" constraintName="fabricanteskey" tableName="fabricantes"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-13">
+        <addPrimaryKey columnNames="did" constraintName="laudoskey" tableName="laudos"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-14">
+        <addPrimaryKey columnNames="nome" constraintName="materiaiskey" tableName="materiais"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-15">
+        <addPrimaryKey columnNames="did" constraintName="tensoeskey" tableName="tensoes"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-16">
+        <createIndex indexName="fki_laudos_cnpj_customer_fkey" tableName="laudos">
+            <column name="cnpj_customer"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-17">
+        <addForeignKeyConstraint baseColumnNames="cnpj_customer" baseTableName="laudos" constraintName="laudos_cnpj_customer_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="cnpj" referencedTableName="customers"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-18">
+        <addForeignKeyConstraint baseColumnNames="id_laudo" baseTableName="laudos_item" constraintName="laudos_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="did" referencedTableName="laudos"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-19">
+        <addForeignKeyConstraint baseColumnNames="cnpj_fabricante" baseTableName="laudos_item" constraintName="laudos_item_cnpj_fabricante_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="cnpj" referencedTableName="fabricantes"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-20">
+        <addForeignKeyConstraint baseColumnNames="cnpj_fabricante" baseTableName="materiais" constraintName="materiais_cnpj_fabricante_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="cnpj" referencedTableName="fabricantes"/>
+    </changeSet>
+    <changeSet author="Hélinton Steffens (generated)" id="1532909020936-21">
+        <addForeignKeyConstraint baseColumnNames="id_tensao" baseTableName="materiais" constraintName="materiais_id_tensao_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="did" referencedTableName="tensoes"/>
+    </changeSet>
+        <changeSet author="Hélinton Steffens (generated)" id="1532909020936-22">
+    	<sql>INSERT INTO accounts(username, "password") VALUES ('user1', 'pass1');</sql>
+    </changeSet>
+</databaseChangeLog>
